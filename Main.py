@@ -66,7 +66,7 @@ def MainMenu():
                 if OptionsButton.CheckClick(MousePosition):
                     OptionsPlayLoop()
                 if QuitButton.CheckClick(MousePosition):
-                    QuitPlayLoop()
+                    QuitGame()
         #end of events
         screen.fill("Light grey")
 
@@ -202,6 +202,7 @@ def MainGamePlayLoop():
         #event handler
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
+                game.onQuit()
                 QuitGame()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if UpgradeDamageButton.ShopButton.CheckClick(pos):
@@ -364,11 +365,6 @@ def OptionsPlayLoop():
 def QuitGame():
     pygame.quit()
     sys.exit()
-
-
-
-
-
 
     return 
 #functions

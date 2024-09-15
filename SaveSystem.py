@@ -15,12 +15,6 @@ class SaveSystemManager:
     def saveEnemiesData(self):
         pass
 
-
-
-
-
-
-
     def loadAllData(self):
         self.loadPlayerData()
         self.loadEnemiesData()
@@ -30,6 +24,19 @@ class SaveSystemManager:
 
     def loadEnemiesData(self):
         pass
+
+
+
+
+    def initiatePlayerData(self):
+        pass
+
+
+    def initiateEnemyData(self, Enemy):
+        pass
+
+
+
 
 class PlayerData:
     def __init__(self):

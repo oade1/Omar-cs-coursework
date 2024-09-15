@@ -409,3 +409,5 @@ class Game():
     def addToEnemyGroup(self, enemy=pygame.sprite.Sprite):
         self.EnemyEnvironment.add(enemy)
 
+    def onQuit(self):
+        pass
