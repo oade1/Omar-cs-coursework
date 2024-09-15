@@ -1,5 +1,5 @@
 from Settings import LAYERS
-import pygame, random,Game, os, Tiles,Raycast, math, Objects
+import pygame, random,Game, os, Raycast, math, DataSystem
 from Settings import *
 from Vectors import *
 from pygame.locals import *
@@ -226,6 +226,7 @@ class EnemyManager:
 
         self.loadAllEnemies()
 
+        game.setEnemyManager(self)
 
     def onQuit(self):
         pass
@@ -431,12 +432,22 @@ class Enemy(pygame.sprite.Sprite):
         red.width = self.currentHealth/(self.maxHealth/self.healthBar.width)
         pygame.draw.rect(internalSurface, ("red"), red)
 
-    def Die(self): self.die(enemy=self)
-        
+    def Die(self): self.die(enemy=self) #self.die is a reference to the enemymanger remove function
+    
+
+    def UpdateData(self, enemyData=DataSystem.EnemyData):
+        dataToSave = ['position', 'serializedNumber', 'AttackChargePercentage', 'currentHealth', 'typeID']
+
+        for varName, varValue in self.__dict__.items():
+            if varName in dataToSave:
+                enemyData.setData(varName, varValue)
+
+
     
 class Skelly(Enemy):
     def __init__(self, EnemyManager=EnemyManager, Position=pygame.Vector2, AnimationDictionary={}, z=LAYERS['ENEMY']):
         super().__init__(EnemyManager, Position, AnimationDictionary, z, 'SkeletonWithSword')
+        self.typeID = '1'
         self.CurrentState = None
         self.states = {
             'IDLE': IdleState(),
@@ -472,6 +483,7 @@ class Skelly(Enemy):
 class Necromancer(Enemy):
     def __init__(self, EnemyManager=EnemyManager, Position=pygame.Vector2, AnimationDictionary={}, z=LAYERS['ENEMY']):
         super().__init__(EnemyManager, Position, AnimationDictionary, z, 'Necromancer')
+        self.typeID = '2'
         self.CurrentState = None
         self.states = {
             'IDLE': IdleState(),

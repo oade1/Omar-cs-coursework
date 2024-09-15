@@ -172,7 +172,8 @@ def MainGamePlayLoop():
     mapManagerTwo = MapManagerTwo(game)
     StartLevels(game)
 
-
+    #Data system manager
+    dataSystemManager = DataSystem.DataSystemManager(game)
 
 
     pygame.event.clear() #so that any inputs made in the loading screen are discarded
@@ -202,7 +203,6 @@ def MainGamePlayLoop():
         #event handler
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                game.onQuit()
                 QuitGame()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if UpgradeDamageButton.ShopButton.CheckClick(pos):
@@ -231,6 +231,7 @@ def MainGamePlayLoop():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     SavePlayerStats(game)
+                    game.onQuit()
                     pygame.mouse.set_visible(True)
                     return
                 if event.key == pygame.K_9:

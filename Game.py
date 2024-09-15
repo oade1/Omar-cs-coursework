@@ -1,4 +1,4 @@
-import pygame,math, Utilities
+import pygame,math, Utilities, DataSystem
 from Functions import *
 from Settings import *
 
@@ -62,7 +62,9 @@ class Game():
         
         self.particleSystem = None
         self.projectileManager = None
-        
+        self.enemyManager = None
+        self.dataSystemManager  = None
+
     def clearUpdateFunctions(self):     self.updateFunctions.clear()
     def clearClosestSpawnerList(self):  self.TopLeftOfSpawners.clear()
 
@@ -409,5 +411,39 @@ class Game():
     def addToEnemyGroup(self, enemy=pygame.sprite.Sprite):
         self.EnemyEnvironment.add(enemy)
 
+    def setEnemyManager(self, enemyManager):    self.enemyManager = enemyManager
+    def setDataSystemManager(self, dataSystemManager): self.dataSystemManager = dataSystemManager
+
     def onQuit(self):
-        pass
+        
+
+
+        #handling enemy data
+        if self.enemyManager is not None:
+            enemies = self.enemyManager.Enemies
+            print("Enemy manager set correctly.")
+            if len(enemies) > 0: # there are enemies currently spawned
+                print(F"There are {len(enemies)} to handle and save correctly.")
+                for enemy in enemies:
+                    print(F"Saving {enemy}.")
+                    enemyData = DataSystem.EnemyData()
+                    enemy.UpdateData(enemyData)
+                    print(f"going to print the enemy data. {enemyData.__dict__}")
+                    if self.dataSystemManager is not None:
+                        self.dataSystemManager.addEnemyData(enemyData)
+                    print(f"printing enemy data in data dictionary, {self.dataSystemManager.data}")
+            else: print("No enemies to save.")
+
+
+
+
+
+
+
+
+
+
+
+        # saveAllData
+        if self.dataSystemManager is not None:
+            self.dataSystemManager.saveAllData()

@@ -1,4 +1,3 @@
-import pygame
 from pygame import Vector2
 
 LAYERS = {
@@ -58,7 +57,8 @@ ENEMYDISTANCES = {
 }
 
 ENEMYTYPES = {
-    '1': "SKELETON" 
+    '1': 'Skeleton',
+    '2': 'Necromancer'
 }
 
 DIRECTIONS = {
@@ -70,6 +70,7 @@ DIRECTIONS = {
 
 PlayerFacingTolerance = 0.1
 
+import pygame
 KEYBINDS = {
     'WALKUP': pygame.K_w,
     'WALKLEFT': pygame.K_a,
